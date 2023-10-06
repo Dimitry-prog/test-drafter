@@ -1,12 +1,35 @@
-import NotesList from "@/features/notes";
+import { getNotes } from "@/features/notes/libs/getNotes";
+import NoteList from "@/features/notes/components/note-list";
+import CreateNote from "@/features/notes/components/create-note";
 
-const NotesPage = () => {
+// export const revalidate = 0;
+
+export const generateMetadata = async () => {
+  const notes = await getNotes();
+
+  if (!notes) {
+    return {
+      title: 'Notes not found'
+    }
+  }
+
+  return {
+    title: 'List of notes',
+    description: 'Here we are'
+  }
+}
+
+const NotesPage = async () => {
+  const notes = await getNotes();
+
   return (
-    <div>
+    <section>
+      <CreateNote/>
       Hello, notes
-      <NotesList/>
-    </div>
+      {notes && <NoteList notes={notes}/>}
+    </section>
   );
 };
 
 export default NotesPage;
+
