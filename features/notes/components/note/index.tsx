@@ -1,15 +1,24 @@
-import { NoteType } from "@/features/notes/types";
+'use client';
 
-type NoteSingleProps = {
-  note: NoteType;
-}
+import { useParams } from "next/navigation";
+import { useGetNoteQuery } from "@/features/notes/redux/noteApi";
+import { NoteParamsType } from "@/features/notes/types";
+import Link from "next/link";
 
-const Note = ({ note }: NoteSingleProps) => {
+const Note = () => {
+  const params = useParams<NoteParamsType>();
+  const { data: note } = useGetNoteQuery(params.noteId);
+
   return (
-    <div>
-      <h2>{note.title}</h2>
-      <p>{note.description}</p>
-    </div>
+    <>
+      {note ? (
+        <>
+          <h2>{note.title}</h2>
+          <p>{note.description}</p>
+          <Link href={`/notes/${params.noteId}/edit`}>✏️</Link>
+        </>
+      ) : <h2>We can not find this note :(</h2>}
+    </>
   );
 };
 

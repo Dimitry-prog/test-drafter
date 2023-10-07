@@ -35,13 +35,12 @@ export const generateStaticParams = async (): Promise<{ noteId: string }[]> => {
   }
 }
 
-const NotePage = async ({ params }: NotePageProps) => {
-  const note = await getNoteById(params.noteId);
+const NotePage = () => {
 
   return (
     <section>
       Hello, single note info
-      {note ? <Note note={note}/> : <h2>We can not find this note :(</h2>}
+      <Note/>
     </section>
   );
 };

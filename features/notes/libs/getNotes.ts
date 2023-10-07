@@ -11,3 +11,14 @@ export const getNotes = async () => {
     console.log(e)
   }
 }
+
+export const getNotesBySearch = async (search: string) => {
+  try {
+    const response = await fetch(`${BASE_URL}/notes?q=${search}`);
+    const notes: NoteType[] = await response.json();
+
+    return notes
+  } catch (e) {
+    console.log(e)
+  }
+}

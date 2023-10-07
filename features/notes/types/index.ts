@@ -6,5 +6,9 @@ export type NoteType = {
 
 export type NoteUpdateType = {
   id: string;
-  body: NoteType
+  body: Omit<NoteType, 'id'>;
+}
+
+export type NoteParamsType = {
+  noteId: string;
 }

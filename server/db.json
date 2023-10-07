@@ -3,7 +3,10 @@
     {
       "id": "1",
       "title": "Grocery List",
-      "description": "Milk, bread, eggs, cheese"
+      "description": "Milk, bread, eggs, cheese",
+      "author": {
+        "name": "Typicode"
+      }
     },
     {
       "id": "2",
@@ -14,16 +17,6 @@
       "id": "3",
       "title": "Travel Itinerary",
       "description": "Flight to Paris on Monday, stay at Hotel Eiffel for 3 nights, visit Louvre Museum on Wednesday"
-    },
-    {
-      "id": "124568tyit",
-      "title": "егег",
-      "description": "65868\n"
-    },
-    {
-      "id": "1245769768tyit",
-      "title": "hello updated",
-      "description": "some text updated"
     }
   ]
 }

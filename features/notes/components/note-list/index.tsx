@@ -1,18 +1,27 @@
-import { NoteType } from "@/features/notes/types";
+'use client'
 import NoteItem from "@/features/notes/components/note-item";
+import { useDeleteNoteMutation, useGetNotesQuery } from "@/features/notes/redux/noteApi";
+import { useAppSelector } from "@/shared/store";
 
-type NotesListProps = {
-  notes: NoteType[]
-}
+// type NotesListProps = {
+//   notes: NoteType[]
+// }
 
-const NoteList = ({ notes }: NotesListProps) => {
+const NoteList = () => {
+  const searchQuery = useAppSelector(state => state.note.searchQuery);
+  const { data: notes, isLoading } = useGetNotesQuery(searchQuery);
+  const [deleteNote] = useDeleteNoteMutation();
 
   return (
-    <ul>
-      {notes.map(note => (
-        <NoteItem note={note} key={note.id}/>
-      ))}
-    </ul>
+    <>
+      {isLoading ? <h2>Loading...</h2> : notes ? (
+        <ul>
+          {notes.map(note => (
+            <NoteItem note={note} key={note.id} deleteNote={() => deleteNote(note.id)}/>
+          ))}
+        </ul>
+      ) : null}
+    </>
   );
 };
 
