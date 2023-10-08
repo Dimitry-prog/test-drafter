@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "@/shared/libs/constants";
-import { NoteType, NoteUpdateType } from "@/features/notes/types";
+import { NoteFilterType, NoteQueryType, NoteType, NoteUpdateType } from "@/features/notes/types";
 
 export const noteApi = createApi({
   reducerPath: 'noteApi',
@@ -9,8 +9,8 @@ export const noteApi = createApi({
   }),
   tagTypes: ['Notes'],
   endpoints: (builder) => ({
-    getNotes: builder.query<NoteType[], string>({
-      query: (query = '') => query ? `/notes?q=${query}` : `/notes`,
+    getNotes: builder.query<NoteType[], NoteQueryType>({
+      query: (query = '') => query ? `/notes?${query}` : `/notes`,
       providesTags: (result) =>
         result
           ? [
@@ -21,6 +21,9 @@ export const noteApi = createApi({
     getNote: builder.query<NoteType, string>({
       query: (noteId) => `/notes/${noteId}`,
       providesTags: (result, error, arg) => [{ type: 'Notes', id: arg }]
+    }),
+    getNotesByFilter: builder.query<NoteType[], NoteFilterType>({
+      query: (filters) => `/notes?${filters.field}_like=${filters.search}`
     }),
     addNewNote: builder.mutation<NoteType, NoteType>({
       query: (body) => ({
@@ -53,5 +56,5 @@ export const {
   useAddNewNoteMutation,
   useDeleteNoteMutation,
   useGetNoteQuery,
-  useUpdateNoteMutation
+  useUpdateNoteMutation,
 } = noteApi;

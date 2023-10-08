@@ -1,15 +1,13 @@
-'use client'
-import NoteItem from "@/features/notes/components/note-item";
-import { useDeleteNoteMutation, useGetNotesQuery } from "@/features/notes/redux/noteApi";
-import { useAppSelector } from "@/shared/store";
+'use client';
 
-// type NotesListProps = {
-//   notes: NoteType[]
-// }
+import NoteItem from "@/features/notes/components/note-item";
+import { useDeleteNoteMutation } from "@/features/notes/redux/noteApi";
+import { useAppSelector } from "@/shared/store";
+import useNotes from "@/features/notes/hooks/useNotes";
 
 const NoteList = () => {
-  const searchQuery = useAppSelector(state => state.note.searchQuery);
-  const { data: notes, isLoading } = useGetNotesQuery(searchQuery);
+  const activeSearchFilter = useAppSelector(state => state.note.activeSearchFilter);
+  const { notes, isLoading } = useNotes(activeSearchFilter);
   const [deleteNote] = useDeleteNoteMutation();
 
   return (

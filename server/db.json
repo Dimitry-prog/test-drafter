@@ -3,10 +3,7 @@
     {
       "id": "1",
       "title": "Grocery List",
-      "description": "Milk, bread, eggs, cheese",
-      "author": {
-        "name": "Typicode"
-      }
+      "description": "Milk, bread, eggs, cheese"
     },
     {
       "id": "2",

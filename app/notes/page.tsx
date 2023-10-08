@@ -1,7 +1,7 @@
 import NoteList from "@/features/notes/components/note-list";
-import SearchNote from "@/features/notes/components/search-note";
 import { Metadata } from "next";
 import Link from "next/link";
+import FiltrationNotes from "@/features/notes/components/filtration-notes";
 
 export const metadata: Metadata = {
   title: 'List of notes',
@@ -15,7 +15,7 @@ const NotesPage = () => {
       Hello, notes
       <Link href='/notes/create'>➕</Link>
       <NoteList/>
-      <SearchNote/>
+      <FiltrationNotes/>
     </section>
   );
 };
