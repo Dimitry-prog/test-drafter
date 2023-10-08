@@ -10,8 +10,8 @@ const SearchNote = () => {
   const debouncedValue = useDebounce(search, 500);
 
   const handleResetFiltration = () => {
-    dispatch(noteActions.setActiveSearchFilter(null));
     setSearch('');
+    dispatch(noteActions.setActiveSearchFilter(null));
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

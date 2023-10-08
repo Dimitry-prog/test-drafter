@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, MouseEventHandler, useEffect, useState } from "react";
 import { NoteSortType } from "@/features/notes/types";
 import { useAppDispatch } from "@/shared/store";
 import { noteActions } from "@/features/notes/redux/noteSlice";
@@ -13,6 +13,14 @@ const SortNotes = () => {
   })
   const dispatch = useAppDispatch();
   const debouncedValue = useDebounce(values, 500);
+
+  const handleResetFiltration: MouseEventHandler<HTMLButtonElement> = (e) => {
+    setValues({
+      field: '',
+      order: 'asc'
+    });
+    dispatch(noteActions.setActiveSearchFilter(null));
+  }
 
   const handleFieldChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setValues(prev => ({
@@ -32,18 +40,19 @@ const SortNotes = () => {
 
   return (
     <div className="btn-group">
-      <button className="w-100 btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+      <button onClick={handleResetFiltration} className="w-100 btn btn-secondary dropdown-toggle" type="button"
+              data-bs-toggle="dropdown"
               aria-expanded="false" data-bs-auto-close="outside" data-bs-display="static">
         Sort
       </button>
       <form onSubmit={handleSubmit} className='px-2 dropdown-menu w-100  dropdown-menu-end'>
-        <select defaultValue={values.field} onChange={handleFieldChange} name='field'
+        <select value={values.field} onChange={handleFieldChange} name='field'
                 className="form-select mb-3 form-select-sm" aria-label="Sort field by:">
           <option value='' disabled>Sort field by:</option>
           <option value="title">Title</option>
           <option value="description">Description</option>
         </select>
-        <select defaultValue={values.order} onChange={handleFieldChange} name='order'
+        <select value={values.order} onChange={handleFieldChange} name='order'
                 className="form-select form-select-sm" aria-label="Sort order by:">
           <option value='' disabled>Sort order by:</option>
           <option value="asc">A-Z</option>

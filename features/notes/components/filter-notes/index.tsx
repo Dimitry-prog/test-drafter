@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, MouseEventHandler, useEffect, useState } from "react";
 import { NoteFilterType } from "@/features/notes/types";
 import { useAppDispatch } from "@/shared/store";
 import { noteActions } from "@/features/notes/redux/noteSlice";
@@ -13,6 +13,14 @@ const FilterNotes = () => {
   })
   const dispatch = useAppDispatch();
   const debouncedValue = useDebounce(values, 500);
+
+  const handleResetFiltration: MouseEventHandler<HTMLButtonElement> = (e) => {
+    setValues({
+      field: 'title',
+      search: ''
+    });
+    dispatch(noteActions.setActiveSearchFilter(null));
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues(prev => ({
@@ -39,7 +47,8 @@ const FilterNotes = () => {
 
   return (
     <div className="btn-group">
-      <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+      <button onClick={handleResetFiltration} className="btn btn-secondary dropdown-toggle" type="button"
+              data-bs-toggle="dropdown"
               aria-expanded="false" data-bs-auto-close="outside" data-bs-display="static">
         Filter
       </button>
@@ -52,7 +61,7 @@ const FilterNotes = () => {
           placeholder={`Search by ${values.field}...`}
           className="form-control"
         />
-        <select defaultValue={values.field} onChange={handleFieldChange} name='field'
+        <select value={values.field} onChange={handleFieldChange} name='field'
                 className="mt-3 form-select form-select-sm" aria-label="Search by:">
           <option value='' disabled>Search by:</option>
           <option value="title">Title</option>
