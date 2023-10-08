@@ -1,8 +1,9 @@
 'use client';
 
-import NoteItem from "@/features/notes/components/note-item";
 import { useAppSelector } from "@/shared/store";
 import useNotes from "@/features/notes/hooks/useNotes";
+import Spinner from "@/shared/components/spinner";
+import NoteItem from "@/features/notes/components/note-item";
 
 const NoteList = () => {
   const activeSearchFilter = useAppSelector(state => state.note.activeSearchFilter);
@@ -10,7 +11,7 @@ const NoteList = () => {
 
   return (
     <>
-      {isLoading ? <h2>Loading...</h2> : notes ? (
+      {isLoading ? <Spinner/> : notes ? (
         <ul
           className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           {notes.map(note => (

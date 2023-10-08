@@ -53,7 +53,8 @@ const CreateNote = () => {
     <form onSubmit={handleSubmit} className='d-flex flex-column gap-4 needs-validation' noValidate>
       <div className="input-group">
         <span className="input-group-text" id="basic-addon1">Title</span>
-        <input value={values.title} onChange={handleChange} name='title' type="text" className="form-control"
+        <input value={values.title} onChange={handleChange} name='title' disabled={isLoading} type="text"
+               className="form-control"
                placeholder="Note title" aria-label="Username"
                aria-describedby="basic-addon1" required/>
         <div className="invalid-feedback">
@@ -62,13 +63,13 @@ const CreateNote = () => {
       </div>
       <div className="input-group">
         <span className="input-group-text">Describe your note</span>
-        <textarea onChange={handleChange} name='description' className="form-control"
+        <textarea onChange={handleChange} name='description' disabled={isLoading} className="form-control"
                   aria-label="With textarea" rows={6} required/>
         <div className="invalid-feedback">
           Please provide a description.
         </div>
       </div>
-      <button type='submit' className='align-self-md-end btn btn-primary'>Create note</button>
+      <button type='submit' disabled={isLoading} className='align-self-md-end btn btn-primary'>Create note</button>
     </form>
   );
 };

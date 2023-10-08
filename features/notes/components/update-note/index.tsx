@@ -8,7 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 const UpdateNote = () => {
   const params = useParams<NoteParamsType>();
   const { data: note } = useGetNoteQuery(params.noteId);
-  const [updateNote] = useUpdateNoteMutation();
+  const [updateNote, { isLoading }] = useUpdateNoteMutation();
   const [values, setValues] = useState<Omit<NoteType, "id">>({
     title: note?.title || '',
     description: note?.description || ''
@@ -56,7 +56,8 @@ const UpdateNote = () => {
     <form onSubmit={handleSubmit} className='d-flex flex-column gap-4 needs-validation' noValidate>
       <div className="input-group">
         <span className="input-group-text" id="basic-addon1">Title</span>
-        <input value={values.title} onChange={handleChange} name='title' type="text" className="form-control"
+        <input value={values.title} onChange={handleChange} name='title' disabled={isLoading} type="text"
+               className="form-control"
                placeholder="Note title" aria-label="Username"
                aria-describedby="basic-addon1" required/>
         <div className="invalid-feedback">
@@ -65,13 +66,14 @@ const UpdateNote = () => {
       </div>
       <div className="input-group">
         <span className="input-group-text">Describe your note</span>
-        <textarea value={values.description} onChange={handleChange} name='description' className="form-control"
+        <textarea value={values.description} onChange={handleChange} name='description' disabled={isLoading}
+                  className="form-control"
                   aria-label="With textarea" rows={6} required/>
         <div className="invalid-feedback">
           Please provide a description.
         </div>
       </div>
-      <button type='submit' className='align-self-md-end btn btn-primary'>Edit note</button>
+      <button type='submit' disabled={isLoading} className='align-self-md-end btn btn-primary'>Edit note</button>
     </form>
   );
 };
