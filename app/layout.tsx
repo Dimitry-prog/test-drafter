@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ReactNode } from "react";
 import ReduxProvider from "@/shared/components/redux-provider";
+import BootstrapJS from "@/shared/components/bootstrap";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,11 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-    <body className={inter.className}>
+    <body id='root' className={inter.className}>
     <ReduxProvider>
-      <main>
+      <BootstrapJS/>
+      <main className='container'>
         {children}
       </main>
+      {/*<BootstrapTooltip/>*/}
     </ReduxProvider>
     </body>
     </html>

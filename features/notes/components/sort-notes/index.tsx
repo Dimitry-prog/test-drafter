@@ -8,7 +8,7 @@ import useDebounce from "@/shared/hooks/useDebounce";
 
 const SortNotes = () => {
   const [values, setValues] = useState<NoteSortType>({
-    field: 'title',
+    field: '',
     order: 'asc'
   })
   const dispatch = useAppDispatch();
@@ -24,7 +24,6 @@ const SortNotes = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(noteActions.setSortQuery(values));
   }
 
   useEffect(() => {
@@ -32,25 +31,26 @@ const SortNotes = () => {
   }, [debouncedValue]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="fieldSelect">Sort field by:</label>
-        <select defaultValue={values.field} onChange={handleFieldChange} name='field'>
+    <div className="btn-group">
+      <button className="w-100 btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false" data-bs-auto-close="outside" data-bs-display="static">
+        Sort
+      </button>
+      <form onSubmit={handleSubmit} className='px-2 dropdown-menu w-100  dropdown-menu-end'>
+        <select defaultValue={values.field} onChange={handleFieldChange} name='field'
+                className="form-select mb-3 form-select-sm" aria-label="Sort field by:">
           <option value='' disabled>Sort field by:</option>
           <option value="title">Title</option>
           <option value="description">Description</option>
         </select>
-      </div>
-      <div>
-        <label htmlFor="fieldSelect">Sort order by:</label>
-        <select defaultValue={values.order} onChange={handleFieldChange} name='order'>
+        <select defaultValue={values.order} onChange={handleFieldChange} name='order'
+                className="form-select form-select-sm" aria-label="Sort order by:">
           <option value='' disabled>Sort order by:</option>
           <option value="asc">A-Z</option>
           <option value="desc">Z-A</option>
         </select>
-      </div>
-      <button type='submit'>🔍</button>
-    </form>
+      </form>
+    </div>
   );
 };
 

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const EditPage = () => {
   return (
-    <section>
+    <section className='mt-5'>
       <UpdateNote/>
     </section>
   );

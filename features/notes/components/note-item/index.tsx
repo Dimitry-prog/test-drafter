@@ -3,18 +3,22 @@ import Link from "next/link";
 
 type NoteProps = {
   note: NoteType
-  deleteNote: () => void;
 }
 
-const NoteItem = ({ note, deleteNote }: NoteProps) => {
+const NoteItem = ({ note }: NoteProps) => {
 
   return (
-    <li>
+    <li className="col">
       <Link href={`notes/${note.id}`}>
-        <h2>{note.title}</h2>
-        <p>{note.description}</p>
+        <div className="card h-100">
+          <h3 className="card-header">
+            {note.title}
+          </h3>
+          <div className="card-body">
+            <p className="card-text">{note.description}</p>
+          </div>
+        </div>
       </Link>
-      <button onClick={deleteNote} type='button'>🗑️</button>
     </li>
   );
 };

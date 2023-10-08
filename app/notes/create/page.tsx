@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const CreatePage = () => {
   return (
-    <section>
+    <section className='mt-5'>
       <CreateNote/>
     </section>
   );

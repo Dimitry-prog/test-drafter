@@ -38,8 +38,7 @@ export const generateStaticParams = async (): Promise<{ noteId: string }[]> => {
 const NotePage = () => {
 
   return (
-    <section>
-      Hello, single note info
+    <section className='mt-5'>
       <Note/>
     </section>
   );

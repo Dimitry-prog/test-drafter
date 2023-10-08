@@ -31,7 +31,6 @@ const FilterNotes = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(noteActions.setFilterQuery(values));
   }
 
   useEffect(() => {
@@ -39,24 +38,28 @@ const FilterNotes = () => {
   }, [debouncedValue]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        value={values.search}
-        onChange={handleChange}
-        name='search'
-        type="text"
-        placeholder={`Search by ${values.field}...`}
-      />
-      <div>
-        <label htmlFor="fieldSelect">Search by:</label>
-        <select defaultValue={values.field} onChange={handleFieldChange} name='field'>
+    <div className="btn-group">
+      <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false" data-bs-auto-close="outside" data-bs-display="static">
+        Filter
+      </button>
+      <form onSubmit={handleSubmit} className='px-2 dropdown-menu w-100 dropdown-menu-end'>
+        <input
+          value={values.search}
+          onChange={handleChange}
+          name='search'
+          type="text"
+          placeholder={`Search by ${values.field}...`}
+          className="form-control"
+        />
+        <select defaultValue={values.field} onChange={handleFieldChange} name='field'
+                className="mt-3 form-select form-select-sm" aria-label="Search by:">
           <option value='' disabled>Search by:</option>
           <option value="title">Title</option>
           <option value="description">Description</option>
         </select>
-      </div>
-      <button type='submit'>🔍</button>
-    </form>
+      </form>
+    </div>
   );
 };
 

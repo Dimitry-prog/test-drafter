@@ -9,6 +9,11 @@ const SearchNote = () => {
   const dispatch = useAppDispatch();
   const debouncedValue = useDebounce(search, 500);
 
+  const handleResetFiltration = () => {
+    dispatch(noteActions.setActiveSearchFilter(null));
+    setSearch('');
+  }
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
     dispatch(noteActions.setActiveSearchFilter('search'));
@@ -16,7 +21,6 @@ const SearchNote = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(noteActions.setSearchQuery(debouncedValue));
   }
 
   useEffect(() => {
@@ -24,10 +28,16 @@ const SearchNote = () => {
   }, [debouncedValue]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input value={search} onChange={handleChange} type='text' placeholder='Search'/>
-      <button type='submit'>🔍</button>
-    </form>
+    <div onClick={handleResetFiltration} className="btn-group">
+      <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false" data-bs-auto-close="outside" data-bs-display="static">
+        Search
+      </button>
+      <form onSubmit={handleSubmit} className='px-2 dropdown-menu w-100 dropdown-menu-end'>
+        <input value={search} onChange={handleChange} type='text' placeholder='Search' className="form-control"/>
+      </form>
+    </div>
+
   );
 };
 

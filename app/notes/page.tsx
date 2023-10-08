@@ -1,7 +1,6 @@
 import NoteList from "@/features/notes/components/note-list";
 import { Metadata } from "next";
-import Link from "next/link";
-import FiltrationNotes from "@/features/notes/components/filtration-notes";
+import NoteHeader from "@/features/notes/components/note-header";
 
 export const metadata: Metadata = {
   title: 'List of notes',
@@ -11,11 +10,9 @@ export const metadata: Metadata = {
 const NotesPage = () => {
 
   return (
-    <section>
-      Hello, notes
-      <Link href='/notes/create'>➕</Link>
+    <section className='py-2 pb-5 d-flex flex-column gap-4'>
+      <NoteHeader/>
       <NoteList/>
-      <FiltrationNotes/>
     </section>
   );
 };
